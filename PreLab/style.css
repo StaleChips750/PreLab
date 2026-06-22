@@ -670,12 +670,16 @@ select.inp{
 .bbar-plus:hover{background:#2db830}
 
 
-/* ── TOTAL BLACK RESET ── */
+/* ── RESET ── */
+/* NOTE: the old blanket "background-color:#000 !important" was removed.
+   It painted every text element (h1-h6, p, label, div…) opaque black,
+   which rendered as black boxes on every raised surface (modals, cards,
+   upload zones, chat bubbles). Surfaces are coloured explicitly in the
+   theme layer below; everything else stays transparent over the #000 body. */
 html, body, div, nav, header, main, section, article, aside, footer,
 span, p, h1, h2, h3, h4, h5, h6, button, input, textarea, select,
 ul, li, a, label, form, fieldset, figure, figcaption,
 *::before, *::after {
-  background-color: #000000 !important;
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
@@ -1134,10 +1138,12 @@ body { color: #ffffff !important; }
    hairline borders, and green/gold/white accents preserved.
 ═══════════════════════════════════════════════════════════ */
 
-/* ── Bars: keep dark, add hairline separation ── */
-.topbar      { background:rgba(0,0,0,0.72) !important; border-bottom:1px solid rgba(255,255,255,0.07) !important; }
-.feed-nav    { background:rgba(0,0,0,0.7)  !important; border-bottom:1px solid rgba(255,255,255,0.07) !important; }
-.bottom-bar  { background:rgba(0,0,0,0.85) !important; border-top:1px solid rgba(255,255,255,0.07) !important; }
+/* ── Bars: solid black + hairline separation.
+   (Opaque, not translucent — a translucent bar let page content bleed
+   through as a stray rectangle / partial line under the header.) ── */
+.topbar      { background:#000 !important; backdrop-filter:none !important; border-bottom:1px solid rgba(255,255,255,0.08) !important; }
+.feed-nav    { background:#000 !important; backdrop-filter:none !important; border-bottom:1px solid rgba(255,255,255,0.08) !important; }
+.bottom-bar  { background:#000 !important; backdrop-filter:none !important; border-top:1px solid rgba(255,255,255,0.08) !important; }
 
 /* ── Feed cards: flush with subtle dividers + hover ── */
 .pcard        { border-bottom:1px solid rgba(255,255,255,0.06) !important; }
