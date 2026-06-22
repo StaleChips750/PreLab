@@ -1315,3 +1315,10 @@ body { color: #ffffff !important; }
 .txt-ic{ width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;
   stroke-linecap:round;stroke-linejoin:round;vertical-align:-2.5px;margin-right:5px; }
 
+
+
+/* ── Shared sprite icon glyphs (size to text via 1em) ── */
+.ico{ width:1em;height:1em;vertical-align:-0.15em;fill:none;stroke:currentColor;
+  stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0; }
+.ico-fill{ width:1em;height:1em;vertical-align:-0.15em;fill:currentColor;stroke:none;flex-shrink:0; }
+.ico-raw{ width:1em;height:1em;vertical-align:-0.15em;flex-shrink:0; }

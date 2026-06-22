@@ -259,7 +259,7 @@ function runImportStep2() {
     const item = document.createElement('div');
     item.className = 'lib-item';
     item.innerHTML = `
-      <div class="lib-thumb" style="background:#0a0a0a;display:flex;align-items:center;justify-content:center;font-size:22px">🎛️</div>
+      <div class="lib-thumb" style="background:#0a0a0a;display:flex;align-items:center;justify-content:center;font-size:22px"><svg class="ico"><use href="#ic-sliders"/></svg></div>
       <div class="lib-info">
         <div class="lib-item-name">${name}</div>
         <div class="lib-item-time">Just now</div>
