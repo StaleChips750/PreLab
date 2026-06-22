@@ -1,6 +1,6 @@
 /* ── WAVEFORM BANNERS ── */
 const WAVES=[[8,14,22,30,36,28,20,14,24,32,26,18,12,22,30,36,26,18,24,32,20,12,26,34,22],[18,28,36,24,16,22,32,26,14,20,30,22,12,18,26,34,20,14,24,32,18,10,22,30,16],[12,22,30,38,28,18,14,26,36,30,20,12,22,32,24,16,20,28,36,22,14,18,26,32,20],[6,16,26,34,26,14,18,28,38,30,22,12,16,24,32,26,16,22,30,38,26,14,18,28,20],[14,24,34,26,16,22,30,20,12,18,28,36,24,14,20,32,26,16,22,30,18,12,24,34,26],[10,20,30,36,26,16,22,32,24,12,18,28,38,30,20,14,22,32,26,16,20,28,36,24,12]];
-const COLORS=["#f5a623","#a56eff","#ffffff","#3ecf6a","#a56eff","#e05c5c"];
+const COLORS=["#ffffff","#a56eff","#ffffff","#3ecf6a","#a56eff","#e05c5c"];
 function drawBanners(){for(let i=1;i<=6;i++){const el=document.getElementById("b"+i);if(!el)continue;el.innerHTML="";WAVES[i-1].forEach(h=>{const d=document.createElement("div");d.className="pbar";d.style.height=h+"px";d.style.setProperty("background",COLORS[i-1],"important");el.appendChild(d);});}}
 drawBanners();
 
@@ -162,13 +162,13 @@ function toggleSave(btn) {
 }
 function drawLibBanners() {
   const configs = [
-    {id:'fl1', color:'#f5a623', h:[10,16,24,32,28,20,14,22,30,18]},
+    {id:'fl1', color:'#ffffff', h:[10,16,24,32,28,20,14,22,30,18]},
     {id:'fl2', color:'#a56eff', h:[14,22,30,26,16,22,28,18,24,32]},
     {id:'fl3', color:'#3fc742', h:[8,18,28,36,28,16,20,30,22,14]},
     {id:'fl4', color:'#fff',    h:[12,20,32,28,18,24,34,22,16,26]},
     {id:'fl5', color:'#e03e8a', h:[16,26,34,24,14,22,30,20,28,18]},
     {id:'tl1', color:'#3fc742', h:[8,14,22,18,12,16,24,20,14,10]},
-    {id:'tl2', color:'#f5a623', h:[10,18,24,20,14,18,26,22,16,12]},
+    {id:'tl2', color:'#ffffff', h:[10,18,24,20,14,18,26,22,16,12]},
     {id:'tl3', color:'#e05c5c', h:[6,12,20,16,10,14,22,18,12,8]},
     {id:'tl4', color:'#fff',    h:[12,20,28,24,18,22,30,26,20,14]},
     {id:'tl5', color:'#a56eff', h:[10,16,24,20,14,18,26,22,16,10]},
