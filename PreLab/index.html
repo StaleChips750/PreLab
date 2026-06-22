@@ -19,6 +19,7 @@
   <symbol id="ic-share" viewBox="0 0 24 24"><path d="M4 12v6.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V12M16 6l-4-4-4 4M12 2.5V14"/></symbol>
   <symbol id="ic-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/></symbol>
   <symbol id="ic-verified" viewBox="0 0 24 24"><path d="M12 1.8l2.5 1.9 3.1.2.9 3 2.6 1.8-1 3 1 3-2.6 1.8-.9 3-3.1.2L12 22.2 9.5 20.3l-3.1-.2-.9-3L2.9 15.3l1-3-1-3 2.6-1.8.9-3 3.1-.2z" fill="#3478f6"/><path d="M8 12.2l2.7 2.6L16.2 9" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
 </svg>
 
 <!-- ═══════════ TOP BAR ═══════════ -->
@@ -82,10 +83,7 @@
     <!-- Filter pills -->
     <div class="filter-row">
       <div class="fpill on" onclick="setFilter(this)">All</div>
-      <div class="fpill" onclick="setFilter(this)">🔬 Ripped</div>
-      <div class="fpill" onclick="setFilter(this)">💬 Described</div>
-      <div class="fpill" onclick="setFilter(this)">🎤 Vocal</div>
-      <div class="fpill" onclick="setFilter(this)">🔥 Trending</div>
+      <div class="fpill" onclick="setFilter(this)"><svg class="txt-ic"><use href="#ic-flame"/></svg>Trending</div>
       <div class="fpill" onclick="setFilter(this)">Hip-Hop</div>
       <div class="fpill" onclick="setFilter(this)">R&B</div>
       <div class="fpill" onclick="setFilter(this)">Drill</div>
@@ -949,7 +947,7 @@
 
     <!-- Featured -->
     <div class="plib-section-hdr">
-      <div class="plib-section-title">🔥 Trending This Week</div>
+      <div class="plib-section-title"><svg class="txt-ic"><use href="#ic-flame"/></svg>Trending This Week</div>
     </div>
     <div class="plib-featured-row">
 
