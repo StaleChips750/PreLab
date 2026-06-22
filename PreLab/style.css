@@ -1248,3 +1248,66 @@ body { color: #ffffff !important; }
 .import-toggle.off, .btn-import-primary:disabled { background:rgba(255,255,255,0.1) !important; }
 .btn-import-secondary { border:1px solid rgba(255,255,255,0.1) !important; }
 
+
+/* ═══════════════════════════════════════════════════════════
+   FEED CARDS — social / TikTok-style layout
+   Icons are a shared SVG sprite (<use href="#ic-*">), never emoji.
+═══════════════════════════════════════════════════════════ */
+.pcard-top{ padding:14px 16px 10px !important; gap:10px; align-items:center; }
+.pcard-avatar{ width:44px;height:44px; }
+.pcard-user{ display:flex;flex-direction:column;gap:1px;min-width:0; }
+.pcard-name{ display:inline-flex;align-items:center;gap:5px;font-size:15px;font-weight:700; }
+.verified{ width:15px;height:15px;flex-shrink:0; }
+.pcard-handle{ font-size:13px;color:var(--text-sec); }
+.pcard-follow{
+  margin-left:auto;padding:8px 20px;border-radius:var(--pill);
+  background:#1c1c20 !important;border:1px solid rgba(255,255,255,0.14) !important;
+  color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:var(--t);
+}
+.pcard-follow:hover{ background:#26262b !important; }
+.pcard-follow.following{ background:transparent !important;color:var(--text-sec); }
+.pcard-more{
+  width:34px;height:34px;border-radius:50%;background:none;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--text-sec);
+}
+.pcard-more:hover{ background:#1c1c20; }
+.pcard-more svg{ width:20px;height:20px;fill:currentColor; }
+
+.pcard-caption{ padding:0 16px 12px; }
+.pcard-caption .pcard-title{ font-size:17px;font-weight:800;letter-spacing:-0.2px;margin-bottom:4px; }
+.pcard-caption .pcard-desc{
+  font-size:13px;color:var(--text-sec);line-height:1.5;margin-bottom:8px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.pcard-hashtags{ display:flex;flex-wrap:wrap;gap:8px; }
+.pcard-hashtags span{ color:#5a8dff;font-size:14px;font-weight:500;cursor:pointer; }
+
+.pcard-banner{
+  height:190px !important;margin:0 16px 12px !important;border-radius:16px;padding:0 14px !important;
+  display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+  background:radial-gradient(130% 90% at 50% 0%, #17171c, #050506) !important;
+  border:1px solid rgba(255,255,255,0.06) !important;
+}
+.pcard-banner-bars{ height:104px !important;align-items:center !important; }
+.pbar{ opacity:0.9; }
+.pcard-banner::after{
+  content:'';position:absolute;top:16px;bottom:16px;left:50%;width:1.5px;
+  background:rgba(255,255,255,0.22);
+}
+.pcard-type{
+  position:absolute;top:12px;left:12px;z-index:2;
+  font-size:10px;font-weight:800;padding:4px 9px;border-radius:6px;
+  text-transform:uppercase;letter-spacing:0.4px;backdrop-filter:blur(6px);
+}
+
+.pcard-footer{ padding:2px 16px 10px !important;gap:22px;align-items:center; }
+.act-btn{
+  display:inline-flex;align-items:center;gap:7px;background:none;border:none;
+  color:var(--text-sec);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;padding:2px 0;
+}
+.act-btn .ai{ width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round; }
+.act-btn:hover{ color:#fff; }
+.act-btn.liked{ color:#e05c5c; }
+.act-btn.liked .ai{ fill:#e05c5c;stroke:#e05c5c; }
+.pcard-footer .pcard-open-btn{ margin-left:auto; }
+
