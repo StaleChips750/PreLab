@@ -1,6 +1,12 @@
 {
   "version": 1,
   "skills": {
+    "advanced-evaluation": {
+      "source": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "sourceType": "github",
+      "skillPath": "skills/advanced-evaluation/SKILL.md",
+      "computedHash": "5fcccffd36b8e99b8f6d0c383b6d7e1e41db1f852d4fa5b2add09a3307996aed"
+    },
     "agent-browser": {
       "source": "vercel-labs/agent-browser",
       "sourceType": "github",
@@ -12,6 +18,18 @@
       "sourceType": "github",
       "skillPath": "skills/algorithmic-art/SKILL.md",
       "computedHash": "b2ca295de7f9c86c444f1fa21239e22e0eb7013ced1c652169b9402cc96ff744"
+    },
+    "bdi-mental-states": {
+      "source": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "sourceType": "github",
+      "skillPath": "skills/bdi-mental-states/SKILL.md",
+      "computedHash": "0f20155df155d32a384d7692b93500fcfef4c750712f10e4e369cd07ed203144"
+    },
+    "book-sft-pipeline": {
+      "source": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "sourceType": "github",
+      "skillPath": "examples/book-sft-pipeline/SKILL.md",
+      "computedHash": "285d481f6a5ace239f5f0ea7c84f8901d3942c5a836f71fcbc8fa5702d9c2e2b"
     },
     "brand-guidelines": {
       "source": "anthropics/skills",
@@ -31,11 +49,53 @@
       "skillPath": "skills/claude-api/SKILL.md",
       "computedHash": "9f19be17e56542510e93d2943227c776ecbbe978307fc43d660dd04b346ef395"
     },
+    "comprehensive-research-agent": {
+      "source": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "sourceType": "github",
+      "skillPath": "examples/interleaved-thinking/generated_skills/comprehensive-research-agent/SKILL.md",
+      "computedHash": "6beffb60ade58c1cb9033b56867ca5695e45b99f027645f52f08f72e6fdfc2c0"
+    },
+    "context-compression": {
+      "source": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "sourceType": "github",
+      "skillPath": "skills/context-compression/SKILL.md",
+      "computedHash": "ad129982109bf8b297767eb5738e11de8d94953623f38840c8d156f5f4d45266"
+    },
+    "context-degradation": {
+      "source": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "sourceType": "github",
+      "skillPath": "skills/context-degradation/SKILL.md",
+      "computedHash": "656c18ece4287396c1e402ab2cfccef665b671fedee17e10a541d68f27422695"
+    },
+    "context-engineering-collection": {
+      "source": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "fd22a73308db7e95bb4596603b833ce83a0ac86345c403eee9d63b9e58a4abbc"
+    },
+    "context-fundamentals": {
+      "source": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "sourceType": "github",
+      "skillPath": "skills/context-fundamentals/SKILL.md",
+      "computedHash": "356af65b05a2d2b94b857ba3fa66b0bf7a5a6e9ea46e3c4dc2981ccc748fbf60"
+    },
+    "context-optimization": {
+      "source": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "sourceType": "github",
+      "skillPath": "skills/context-optimization/SKILL.md",
+      "computedHash": "10f1676cd4457fb80f6641e6b754f9320cef1c9044c5fdf079d95ff51e2ff54e"
+    },
     "deploy-to-vercel": {
       "source": "vercel-labs/agent-skills",
       "sourceType": "github",
       "skillPath": "skills/deploy-to-vercel/SKILL.md",
       "computedHash": "d2b5bcc7c09fdb649129ffc7dd7b647ec1b155736974b974292675afd588cb39"
+    },
+    "digital-brain": {
+      "source": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "sourceType": "github",
+      "skillPath": "examples/digital-brain-skill/SKILL.md",
+      "computedHash": "ddd9893228c07f6a805cb5fccfd945a0464b46fe8fe59d746fb23c23298dadf3"
     },
     "doc-coauthoring": {
       "source": "anthropics/skills",
@@ -49,6 +109,18 @@
       "skillPath": "skills/docx/SKILL.md",
       "computedHash": "6962db07127ee540a56e4677f65576d0727668a1d67f7da8bc978f10791c2bfe"
     },
+    "evaluation": {
+      "source": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "sourceType": "github",
+      "skillPath": "skills/evaluation/SKILL.md",
+      "computedHash": "89a60aed37098d50f32e9f0c30bf2516b7f8fd543d246575cb807c01ed0a0184"
+    },
+    "filesystem-context": {
+      "source": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "sourceType": "github",
+      "skillPath": "skills/filesystem-context/SKILL.md",
+      "computedHash": "38955cc308c94c32857c258a14ac2a657d05df9fe6041f62ce26331da38dd260"
+    },
     "find-skills": {
       "source": "vercel-labs/skills",
       "sourceType": "github",
@@ -61,17 +133,47 @@
       "skillPath": "skills/frontend-design/SKILL.md",
       "computedHash": "4eabc66183767153e404b39d1b839b1c37f2d82d86f0a0d7e880a579d8d62336"
     },
+    "harness-engineering": {
+      "source": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "sourceType": "github",
+      "skillPath": "skills/harness-engineering/SKILL.md",
+      "computedHash": "ef256fb4af2de1fc231dbc8f0a71049cafed5553d5f6ce8e5caf065ab3bf382a"
+    },
+    "hosted-agents": {
+      "source": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "sourceType": "github",
+      "skillPath": "skills/hosted-agents/SKILL.md",
+      "computedHash": "5c05baf32f1c1e2ac23307ea41629df9fe46e34e41597e420dd0da4b386f24ec"
+    },
     "internal-comms": {
       "source": "anthropics/skills",
       "sourceType": "github",
       "skillPath": "skills/internal-comms/SKILL.md",
       "computedHash": "0bdc8867452b7ab9ef6167f6b0db2025ce5fb03773d3f85efcef2dfeb9d4976d"
     },
+    "latent-briefing": {
+      "source": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "sourceType": "github",
+      "skillPath": "skills/latent-briefing/SKILL.md",
+      "computedHash": "dfa55bda8969ef0b82c70cb32d8a7aee9e138510662706622ff5b5907d232088"
+    },
     "mcp-builder": {
       "source": "anthropics/skills",
       "sourceType": "github",
       "skillPath": "skills/mcp-builder/SKILL.md",
       "computedHash": "826e46adf81e1372282e205c34e1a2ee876e72148007726e4a2512599d2fef7b"
+    },
+    "memory-systems": {
+      "source": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "sourceType": "github",
+      "skillPath": "skills/memory-systems/SKILL.md",
+      "computedHash": "70dc5d4ec40cfec2f73c01c3ff928c52a8d12f57b56af32fd8535c8ccca83902"
+    },
+    "multi-agent-patterns": {
+      "source": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "sourceType": "github",
+      "skillPath": "skills/multi-agent-patterns/SKILL.md",
+      "computedHash": "8c87834dae4cbf6939d32300839ca55d12d292d20e6af6ec197f5b78da8620a9"
     },
     "pdf": {
       "source": "anthropics/skills",
@@ -85,6 +187,18 @@
       "skillPath": "skills/pptx/SKILL.md",
       "computedHash": "6b8b859d26f93aa059c9870d1ab76b44ab69e3d6757ce4a03cc94cb760888073"
     },
+    "project-development": {
+      "source": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "sourceType": "github",
+      "skillPath": "skills/project-development/SKILL.md",
+      "computedHash": "d64ee850c7473afdce6260d9fa443f27af8ece773fd33c49f0e5d50f3aee0cd7"
+    },
+    "reasoning-trace-optimizer": {
+      "source": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "sourceType": "github",
+      "skillPath": "examples/interleaved-thinking/SKILL.md",
+      "computedHash": "015c4d5b642af1775933742885825dc816f9d04272fe3cc8b6bb70fca09a0baf"
+    },
     "security-review": {
       "source": "affaan-m/everything-claude-code",
       "sourceType": "github",
@@ -96,6 +210,12 @@
       "sourceType": "github",
       "skillPath": "skills/skill-creator/SKILL.md",
       "computedHash": "5ea13a6d9f0d4bb694405d79acd00cadec0d21bb138c4dd10fcf3c500cb835c2"
+    },
+    "skill-template": {
+      "source": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "sourceType": "github",
+      "skillPath": "template/SKILL.md",
+      "computedHash": "eb98dc13ce4dc192bec69fef08be5f84d96c56478117aba488048a17a7803d0d"
     },
     "slack-gif-creator": {
       "source": "anthropics/skills",
@@ -126,6 +246,12 @@
       "sourceType": "github",
       "skillPath": "skills/theme-factory/SKILL.md",
       "computedHash": "598ddfa9784ae2a8c55be5dbb047b98564d875dea6f4669168a87ae1ea1a4ed3"
+    },
+    "tool-design": {
+      "source": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "sourceType": "github",
+      "skillPath": "skills/tool-design/SKILL.md",
+      "computedHash": "e4b0f4c77e24d0156c5b1eaf5ca2723825943454c437fc16d8f03ac49f2a1084"
     },
     "vercel-cli-with-tokens": {
       "source": "vercel-labs/agent-skills",
