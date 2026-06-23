@@ -3,6 +3,8 @@
 -- Aligned with the "share BandLab-made presets" intent: no preset API, so a
 -- preset is a user-entered record (bandlab_url + manual fx_chain + cover).
 
+create extension if not exists citext;
+
 -- ─────────────────────────── PROFILES ───────────────────────────
 create table if not exists public.profiles (
   id            uuid primary key references auth.users(id) on delete cascade,
