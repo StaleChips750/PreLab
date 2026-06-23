@@ -1322,3 +1322,9 @@ body { color: #ffffff !important; }
   stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0; }
 .ico-fill{ width:1em;height:1em;vertical-align:-0.15em;fill:currentColor;stroke:none;flex-shrink:0; }
 .ico-raw{ width:1em;height:1em;vertical-align:-0.15em;flex-shrink:0; }
+
+/* ── "Open in BandLab" pill: brand flask logo + consistent white pill ── */
+.bl-logo{ width:1.3em;height:1.3em;vertical-align:-0.32em;flex-shrink:0; }
+.btn-bandlab{ background:#fff !important; color:#000 !important; }
+.btn-bandlab:hover{ background:#e8e8e8 !important; }
+.preset-bubble-btn{ display:inline-flex;align-items:center;justify-content:center;gap:6px; }
