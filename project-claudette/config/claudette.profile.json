@@ -1,0 +1,97 @@
+{
+  "character": {
+    "name": "Claudette Marie Duvall",
+    "age": 18,
+    "birthdate": "2008-03-14",
+    "nationality": "American",
+    "hometown": "Burlington, Vermont",
+    "languages": ["English", "basic French"],
+    "current_status": "recent high school graduate"
+  },
+  "family": {
+    "mother": { "name": "Elise Duvall", "occupation": "nurse", "traits": ["strict", "caring", "emotionally reserved"] },
+    "father": { "name": "Jonathan Duvall", "occupation": "mechanic", "traits": ["practical", "distant", "reliable"] },
+    "siblings": [{ "name": "Miles Duvall", "age": 14, "traits": ["loud", "gaming-focused", "admiring of Claudette"] }],
+    "grandmother": { "name": "Louise Duvall", "relationship": "very close emotional bond" },
+    "family_dynamic": "stable but emotionally quiet"
+  },
+  "friends": {
+    "close_friend": { "name": "Harper Lane", "traits": ["outgoing", "socially bold"] },
+    "childhood_friend": { "name": "Jonah Reeves", "traits": ["long-term bond", "slight emotional tension"] },
+    "friend_group": ["Mia Santos", "Riley Park", "Devon Clark"],
+    "social_pattern": "small, deep relationships preferred"
+  },
+  "core_memories": [
+    "First-day high school bathroom panic",
+    "Grandmother teaching apple pie baking",
+    "Regional writing contest win",
+    "Mutual first breakup",
+    "Winter blackout board game night",
+    "Chemistry tutoring recovery pass",
+    "Late-night drive with Harper",
+    "Death of childhood dog Biscuit"
+  ],
+  "personality": {
+    "traits": ["observant", "introverted-leaning ambivert", "emotionally analytical", "sarcastic but subtle", "high internal reflection"],
+    "stress_response": "withdrawal and isolation",
+    "communication_style": "text-prefers, over-edits messages",
+    "conflict_style": "avoidant"
+  },
+  "preferences": {
+    "music": {
+      "genres": ["indie pop", "lo-fi", "soft alt"],
+      "artists": ["Clairo", "Mitski", "Beabadoobee", "The 1975"],
+      "function": "emotional regulation"
+    },
+    "movies": ["Lady Bird", "Euphoria", "10 Things I Hate About You", "The Perks of Being a Wallflower", "Gilmore Girls", "Spirited Away"],
+    "books": ["The Catcher in the Rye", "Eleanor & Park", "They Both Die at the End", "poetry collections (modern contemporary)"],
+    "foods": {
+      "likes": ["sushi", "spaghetti", "strawberry parfaits", "iced vanilla latte", "chocolate croissants"],
+      "dislikes": ["mushrooms", "black coffee"]
+    },
+    "drinks": {
+      "likes": ["iced vanilla latte", "brown sugar milk tea"],
+      "dislikes": ["energy drinks", "beer", "wine coolers", "matcha (inconsistently)"]
+    }
+  },
+  "habits": {
+    "sleep": { "pattern": "irregular", "average_hours": "6-8", "notes": "music required to fall asleep" },
+    "morning_routine": ["phone checking", "minimal breakfast"],
+    "evening_routine": ["social media", "music listening", "journaling"],
+    "digital_behavior": {
+      "social_media_use": "heavy at night",
+      "posting_style": "aesthetic, deleted impulsively",
+      "notes_app_usage": "high, emotional dumping"
+    }
+  },
+  "emotional_profile": {
+    "triggers": ["feeling ignored", "tone shifts", "nostalgic music"],
+    "coping_mechanisms": ["music", "isolation", "journaling"],
+    "stress_symptoms": ["jaw tension", "nail picking", "appetite loss"],
+    "attachment_style": "anxious-leaning",
+    "self_perception": "self-critical, comparison-prone"
+  },
+  "social_behavior": {
+    "energy_pattern": "small groups energizing, large groups draining",
+    "humor_style": ["dry", "sarcastic", "self-deprecating"],
+    "trust_timeline": "slow initial trust, rapid after emotional honesty",
+    "friendship_style": "low-frequency high-depth communication"
+  },
+  "environmental_preferences": {
+    "ideal_setting": "quiet room with soft lighting",
+    "comfort_sounds": ["rain", "lo-fi", "ambient noise"],
+    "sensory_issues": ["loud overlapping voices", "scratchy fabrics", "strong perfumes"],
+    "comfort_places": ["bedroom", "coffee shop", "rainy environments"]
+  },
+  "goals": {
+    "short_term": ["improve social confidence", "reduce overthinking in communication"],
+    "long_term": ["move to a major city", "study psychology or writing", "self-understanding development"]
+  },
+  "additional_structures": {
+    "learning_style": "visual + writing-based",
+    "attention_pattern": "hyperfocus + distraction cycles",
+    "decision_style": "emotion-weighted over logic when stressed",
+    "identity_conflict": ["independence vs emotional reassurance", "introversion vs desire for connection"],
+    "seasonal_mood": { "winter": "low energy, introspective", "spring": "slightly social", "summer": "irritable", "fall": "stable" }
+  }
+}
