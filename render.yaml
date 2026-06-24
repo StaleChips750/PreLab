@@ -1,0 +1,40 @@
+# Render Blueprint for project-claudette
+# Deploy: Render Dashboard → New → Blueprint → connect the PreLab repo → Apply.
+# Render reads this file from the repo root. Secret env vars (sync: false) are
+# left blank on purpose — fill them in the Render dashboard after the first apply.
+services:
+  - type: web
+    name: project-claudette
+    runtime: node
+    plan: free
+    branch: claude/project-claudette-blueprint-3o2bx5
+    rootDir: project-claudette
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      # ── Anthropic (LLM engine) ──────────────────────────────────────
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      # ── Meta / Instagram ────────────────────────────────────────────
+      - key: META_VERIFY_TOKEN
+        sync: false
+      - key: META_PAGE_ACCESS_TOKEN
+        sync: false
+      - key: INSTAGRAM_ACCOUNT_ID
+        sync: false
+      # ── Supabase (memory storage) ───────────────────────────────────
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      # ── OpenAI (embeddings: text-embedding-3-small) ─────────────────
+      - key: OPENAI_API_KEY
+        sync: false
+      # ── Optional ────────────────────────────────────────────────────
+      - key: REDIS_URL
+        sync: false
+      # Render injects PORT automatically; the app reads process.env.PORT.
+      - key: NODE_VERSION
+        value: "18"
