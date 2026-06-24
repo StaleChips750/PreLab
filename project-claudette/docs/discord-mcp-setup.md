@@ -152,20 +152,18 @@ its tools as connected.
 Project Claudette today takes **Instagram DMs** through a fixed pipeline
 (`webhook → screener → memory → LLM → messenger`, see
 [`../README.md`](../README.md)). Discord becomes a **second inbound/outbound
-channel** into that same pipeline. Two viable shapes:
+channel** into that same pipeline.
 
-- **A. Direct bot (recommended for Claudette).** A `discord.js` client inside
-  Project Claudette listens for message events and calls the *existing* reply
-  pipeline directly — the Discord analog of `src/webhook/instagram.js` +
-  `src/instagram/messenger.js`. The MCP server is **not** in this loop; it's the
-  developer-facing tool for manual reading/sending. This keeps Claudette's
-  autonomous reply path independent of any MCP client being open.
+### Decided: direct bot client
 
-- **B. Via MCP.** An MCP-host process drives the `discord` MCP tools. Simpler to
-  prototype, but it couples Claudette's live responsiveness to a running MCP
-  host and polling, which doesn't fit a webhook-style persona well.
+Claudette runs as a **direct `discord.js` bot client** inside Project Claudette
+— it listens for message events and calls the *existing* reply pipeline
+directly, the Discord analog of `src/webhook/instagram.js` +
+`src/instagram/messenger.js`. The MCP server is **not** in Claudette's live
+reply loop; it stays a developer-facing tool for manual reading/sending. This
+keeps her autonomous responses independent of any MCP host being open.
 
-When we pick this up, the new pieces (mirroring the Instagram side) will be:
+New pieces (mirroring the Instagram side):
 
 ```
 src/discord/listener.js     # client.on('messageCreate') → reply pipeline   (≈ webhook/instagram.js)
@@ -173,10 +171,43 @@ src/discord/messenger.js    # channel.send(...) for outbound                (≈
 ```
 
 Reused unchanged: `guardrails/screener.js`, `memory/*`, `llm/claudette.js`,
-`utils/users.js`. New env vars would be `DISCORD_TOKEN` (and optionally a
-guild/channel allowlist). **Memory keying:** Instagram keys users by IG id —
-Discord would key by Discord user id, so add a channel/source field to the
-user record to keep identities from colliding across platforms.
+`utils/users.js`. New env vars: `DISCORD_TOKEN` (and optionally a
+guild/channel allowlist).
+
+### Memory is unified across platforms — one person, one thread
+
+Claudette is **one persona**, and her memory of a given human must be **shared
+across every platform she's on**. If the same person talks to her on Instagram
+*and* Discord, she should recognize them as the same person and carry memory
+across — not start over per platform.
+
+So the data model keys on a **canonical internal person**, and platform IDs are
+**links** to that person, not separate primary keys:
+
+```
+people(id PK, display_name, …)                     -- one row per human
+identities(person_id → people, platform, platform_user_id)
+                                                   -- (instagram, 12345), (discord, 67890) → same person_id
+messages(person_id → people, platform, …)          -- platform is just provenance metadata
+memories(person_id → people, embedding, …)         -- recall scoped to the person, not the platform
+```
+
+- **Memory recall (`match_memories`) scopes by `person_id`**, so it spans every
+  linked platform automatically.
+- **`platform` is provenance only** — useful for "where did this come from / how
+  do I reply," never an identity boundary.
+- **Identity linking is the one hard part.** You can't auto-merge an IG user and
+  a Discord user without a signal — they're different IDs on different services.
+  Plan a lightweight **link flow** (e.g. the person says "it's me from
+  Instagram," or a one-time code Claudette issues on one platform and they paste
+  on the other) that attaches a new `identities` row to an existing `person_id`.
+  Until linked, a new platform identity is simply a new person; linking merges
+  them.
+
+> Migration note: today's `users` table keys by IG id. Moving to
+> `people` + `identities` is a backfill — wrap it in
+> `supabase/migrations/` when we start this, and repoint `memories`/`messages`
+> foreign keys at `person_id`.
 
 ---
 
