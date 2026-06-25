@@ -194,6 +194,8 @@ drawLibBanners();
 
 
 /* ── IMPORT FROM BANDLAB ── */
+window._import_bandlab_url = '';
+
 function openImportModal() {
   goImportStep(1);
   document.getElementById('import-url-input').value = '';
@@ -233,45 +235,245 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function runImportStep1() {
   const url = document.getElementById('import-url-input').value.trim();
-  if(!url) return;
-  // Simulate fetching preset from BandLab
-  const btn = document.getElementById('import-step1-btn');
-  btn.textContent = 'Fetching...';
-  btn.disabled = true;
-  setTimeout(() => {
-    // Mock preset name from URL or generic
-    const mockNames = ['Dark Trap Vocal Chain','808 Sub Distortion','Bright Pop Reverb','UK Drill Crunch','R&B Silky EQ'];
-    const name = mockNames[Math.floor(Math.random()*mockNames.length)];
-    document.getElementById('import-preset-name').textContent = name;
-    document.getElementById('import-success-name').textContent = name;
-    document.getElementById('import-preset-meta').textContent = 'BandLab · FX Preset';
-    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 4l5 4-5 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Fetch Preset';
-    btn.disabled = false;
-    goImportStep(2);
-  }, 1800);
+  if (!url) return;
+  window._import_bandlab_url = url;
+  const preview = document.getElementById('import-bandlab-url-preview');
+  if (preview) preview.textContent = url.length > 44 ? url.slice(0, 44) + '…' : url;
+  goImportStep(2);
 }
 
-function runImportStep2() {
-  const name = document.getElementById('import-preset-name').textContent;
-  // Add to library list (mock)
-  const list = document.querySelector('.lib-list');
-  if(list) {
-    const item = document.createElement('div');
-    item.className = 'lib-item';
-    item.innerHTML = `
-      <div class="lib-thumb" style="background:#0a0a0a;display:flex;align-items:center;justify-content:center;font-size:22px"><svg class="ico"><use href="#ic-sliders"/></svg></div>
-      <div class="lib-info">
-        <div class="lib-item-name">${name}</div>
-        <div class="lib-item-time">Just now</div>
-      </div>
-      <div class="lib-item-actions">
-        <svg class="lib-bl-icon" width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2C6.03 2 2 6.03 2 11s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9z" stroke="#666" stroke-width="1.4"/><path d="M9 8l5 3-5 3V8z" fill="#666"/></svg>
-        <button class="lib-more-btn" onclick="event.stopPropagation();showToast('Options')">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="4" r="1.3" fill="#666"/><circle cx="9" cy="9" r="1.3" fill="#666"/><circle cx="9" cy="14" r="1.3" fill="#666"/></svg>
-        </button>
-      </div>`;
-    list.insertBefore(item, list.firstChild);
-  }
+async function runImportStep2() {
+  const session = await pl_getSession();
+  if (!session) { closeImportModal(); openModal(); showToast('Sign in to share presets'); return; }
+
+  const title = (document.getElementById('import-title')?.value || '').trim();
+  if (!title) { showToast('Add a title for your preset'); return; }
+
+  const desc = (document.getElementById('import-desc')?.value || '').trim();
+  const trackType = document.getElementById('import-track-type')?.value || '';
+  const genre = (document.getElementById('import-genre')?.value || '').trim();
+  const fxText = (document.getElementById('import-fx-chain')?.value || '').trim();
+  const coverFile = document.getElementById('import-cover-file')?.files?.[0] || null;
+  const isPublic = !document.getElementById('privacy-toggle')?.classList.contains('off');
+
+  const btn = document.querySelector('#import-step-2 .btn-import-primary');
+  const origHTML = btn.innerHTML;
+  btn.innerHTML = 'Saving…'; btn.disabled = true;
+
+  const { data, error } = await pl_createPreset({
+    title, description: desc,
+    bandlab_url: window._import_bandlab_url || null,
+    track_type: trackType || null,
+    genre: genre || null,
+    fx_chain: fxText ? [{ effect: fxText, params: {} }] : [],
+    visibility: isPublic ? 'public' : 'private'
+  }, coverFile);
+
+  btn.innerHTML = origHTML; btn.disabled = false;
+
+  if (error) { showToast(error.message || 'Failed to save preset'); return; }
+
+  const nameEl = document.getElementById('import-success-name');
+  if (nameEl) nameEl.textContent = title;
   goImportStep(3);
+  pl_loadFeed(_pl_feedTab);
 }
 
+
+
+/* ══════════════════════════════════════════════════════════════════
+   SUPABASE WIRING — Auth, Feed, Social, Profile
+   ══════════════════════════════════════════════════════════════════ */
+
+// ── Auth modal handlers ──────────────────────────────────────────
+async function pl_doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pw = document.getElementById('login-password').value;
+  if (!email || !pw) { showToast('Enter email and password'); return; }
+  const btn = document.querySelector('#modal-bg .btn-login');
+  btn.textContent = 'Signing in…'; btn.disabled = true;
+  const { error } = await pl_signIn(email, pw);
+  btn.textContent = 'Log In'; btn.disabled = false;
+  if (error) { showToast(error.message || 'Login failed'); return; }
+  closeModal();
+  showToast('Welcome back! 🎛️');
+}
+
+async function pl_doSignup() {
+  const name = document.getElementById('signup-name').value.trim();
+  const handle = document.getElementById('signup-handle').value.trim();
+  const email = document.getElementById('signup-email').value.trim();
+  const pw = document.getElementById('signup-password').value;
+  if (!name || !handle || !email || !pw) { showToast('Fill in all fields'); return; }
+  if (pw.length < 6) { showToast('Password must be at least 6 characters'); return; }
+  const btn = document.querySelector('#signup-bg .btn-login');
+  btn.textContent = 'Creating…'; btn.disabled = true;
+  const { error } = await pl_signUp(email, pw, handle, name);
+  btn.textContent = 'Create Account'; btn.disabled = false;
+  if (error) { showToast(error.message || 'Sign up failed'); return; }
+  closeSignup();
+  showToast('Welcome to PreLab! 🎛️');
+}
+
+async function pl_doSignOut() {
+  await pl_signOut();
+  showToast('Signed out');
+  pl_loadFeed('trending');
+}
+
+// ── Auth state → UI ──────────────────────────────────────────────
+window._pl_onAuthChange = async function (event, session) {
+  const authed = document.getElementById('topbar-authed');
+  const anon = document.getElementById('topbar-anon');
+  const profBtn = document.getElementById('profile-signup-btn');
+
+  if (session) {
+    if (authed) authed.style.display = 'flex';
+    if (anon) anon.style.display = 'none';
+    if (profBtn) profBtn.style.display = 'none';
+    const { data } = await pl_getProfile(session.user.id);
+    if (data) pl_renderProfile(data);
+  } else {
+    if (authed) authed.style.display = 'none';
+    if (anon) anon.style.display = 'flex';
+    if (profBtn) profBtn.style.display = '';
+  }
+  pl_loadFeed(_pl_feedTab);
+};
+
+// ── Feed ─────────────────────────────────────────────────────────
+let _pl_feedTab = 'trending';
+
+async function pl_loadFeed(tab) {
+  if (tab) _pl_feedTab = tab;
+  const liveEl = document.getElementById('live-feed');
+  const demoEl = document.getElementById('demo-feed');
+  if (!liveEl) return;
+
+  liveEl.innerHTML = '<div style="text-align:center;padding:40px;color:#555;font-size:14px">Loading presets…</div>';
+
+  const { data, error } = await pl_getFeed({ tab: _pl_feedTab });
+  if (error) {
+    liveEl.innerHTML = '';
+    if (demoEl) demoEl.style.display = '';
+    return;
+  }
+
+  if (data && data.length) {
+    liveEl.innerHTML = data.map(pl_renderCard).join('');
+    if (demoEl) demoEl.style.display = 'none';
+  } else {
+    liveEl.innerHTML = '';
+    if (demoEl) demoEl.style.display = '';
+  }
+}
+
+// ── Card renderer ────────────────────────────────────────────────
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+const _PL_AV_COLORS = [
+  '#f5a623,#e03e8a','#a56eff,#3ecf6a','#3ecf6a,#00c2ff',
+  '#e03e8a,#a56eff','#00c2ff,#3ecf6a','#f5a623,#a56eff'
+];
+
+function pl_renderCard(p) {
+  const name = p.author?.display_name || p.author?.handle || 'Producer';
+  const handle = p.author?.handle || 'unknown';
+  const initials = name.split(/\s+/).map(w => w[0]).join('').toUpperCase().slice(0, 2) || '??';
+  const ci = (p.author_id?.charCodeAt(0) || 0) % _PL_AV_COLORS.length;
+
+  const hashtags = [p.genre, p.track_type].filter(Boolean)
+    .map(t => `<span>#${escHtml(t.toLowerCase().replace(/\s+/g,''))}</span>`).join('');
+
+  const blBtn = p.bandlab_url
+    ? `<a href="${escHtml(p.bandlab_url)}" target="_blank" rel="noopener" class="pcard-open-btn"><svg class="bl-logo"><use href="#ic-bandlab"/></svg>Open in BandLab</a>`
+    : '';
+
+  const bars = Array.from({ length: 14 }, (_, i) =>
+    `<div style="width:3px;height:${6 + Math.abs(Math.sin(i * 0.9 + (p.id?.charCodeAt(0) || 0))) * 18 | 0}px;background:#a56eff;border-radius:2px;opacity:0.8"></div>`
+  ).join('');
+
+  return `
+  <article class="pcard" data-id="${escHtml(p.id)}" data-author="${escHtml(p.author_id)}">
+    <div class="pcard-top">
+      <div class="pcard-avatar" style="background:linear-gradient(135deg,${_PL_AV_COLORS[ci]})">${escHtml(initials)}</div>
+      <div class="pcard-user">
+        <div class="pcard-name">${escHtml(name)}</div>
+        <div class="pcard-handle">@${escHtml(handle)}</div>
+      </div>
+      <button class="pcard-follow${p.viewer_follows_author ? ' following' : ''}" onclick="pl_uiFollow(this,'${escHtml(p.author_id)}')">${p.viewer_follows_author ? 'Following' : 'Follow'}</button>
+      <button class="pcard-more" onclick="showToast('More options')"><svg><use href="#ic-more"/></svg></button>
+    </div>
+    <div class="pcard-caption">
+      <div class="pcard-title">${escHtml(p.title)}</div>
+      ${p.description ? `<div class="pcard-desc">${escHtml(p.description)}</div>` : ''}
+      <div class="pcard-hashtags">${hashtags}</div>
+    </div>
+    <div class="pcard-banner">
+      <span class="pcard-type badge-desc">${escHtml(p.track_type || 'Preset')}</span>
+      <div class="pcard-banner-bars" style="display:flex;gap:2px;align-items:center;padding:0 12px">${bars}</div>
+    </div>
+    <div class="pcard-footer">
+      <button class="act-btn${p.viewer_liked ? ' liked' : ''}" onclick="pl_uiLike(this,'${escHtml(p.id)}')"><svg class="ai"><use href="#ic-heart"/></svg><span>${p.like_count || 0}</span></button>
+      <button class="act-btn" onclick="showToast('Comments coming soon')"><svg class="ai"><use href="#ic-comment"/></svg><span>${p.comment_count || 0}</span></button>
+      <button class="act-btn" onclick="navigator.clipboard?.writeText(location.href).then(()=>showToast('Link copied!'))"><svg class="ai"><use href="#ic-share"/></svg></button>
+      ${blBtn}
+    </div>
+  </article>`;
+}
+
+// ── Social UI handlers ───────────────────────────────────────────
+async function pl_uiLike(btn, presetId) {
+  const session = await pl_getSession();
+  if (!session) { openModal(); return; }
+  btn.disabled = true;
+  const { liked, error } = await pl_toggleLike(presetId);
+  btn.disabled = false;
+  if (error) { showToast(error.message || 'Error'); return; }
+  btn.classList.toggle('liked', liked);
+  const span = btn.querySelector('span');
+  if (span) span.textContent = Math.max(0, parseInt(span.textContent || '0') + (liked ? 1 : -1));
+}
+
+async function pl_uiFollow(btn, userId) {
+  const session = await pl_getSession();
+  if (!session) { openModal(); return; }
+  btn.disabled = true;
+  const { following, error } = await pl_toggleFollow(userId);
+  btn.disabled = false;
+  if (error) { showToast(error.message || 'Error'); return; }
+  btn.textContent = following ? 'Following' : 'Follow';
+  btn.classList.toggle('following', following);
+  if (following) showToast('Following!');
+}
+
+// ── Profile renderer ─────────────────────────────────────────────
+function pl_renderProfile(profile) {
+  const nameEl = document.querySelector('.profile-name');
+  const handleEl = document.querySelector('.profile-handle');
+  const avEl = document.querySelector('.profile-av');
+  if (nameEl) nameEl.textContent = profile.display_name || profile.handle;
+  if (handleEl) handleEl.textContent = '@' + profile.handle;
+  if (avEl) {
+    const initials = (profile.display_name || profile.handle || '?')
+      .split(/\s+/).map(w => w[0]).join('').toUpperCase().slice(0, 2) || '?';
+    avEl.textContent = initials;
+  }
+}
+
+// ── Feed tab wiring ──────────────────────────────────────────────
+const _origSetFeedTab = setFeedTab;
+function setFeedTab(el) {
+  _origSetFeedTab(el);
+  const txt = el.textContent.trim().toLowerCase();
+  pl_loadFeed(txt.includes('follow') ? 'following' : 'trending');
+}
+
+// ── Init ─────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  pl_getSession().then(session => {
+    window._pl_onAuthChange(session ? 'SIGNED_IN' : 'SIGNED_OUT', session);
+  });
+});
